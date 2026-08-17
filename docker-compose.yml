@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: ai_financial_advisor_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: ai_financial_advisor
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - financial_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: ai_financial_advisor_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017
+      - DATABASE_NAME=ai_financial_advisor
+      - JWT_SECRET=ai_financial_advisor_docker_secret_key_2026
+      - BACKEND_HOST=0.0.0.0
+      - BACKEND_PORT=8000
+    depends_on:
+      - mongodb
+    volumes:
+      - ./models:/app/models
+      - ./uploads:/app/uploads
+    networks:
+      - financial_network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: ai_financial_advisor_frontend
+    restart: always
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - financial_network
+
+volumes:
+  mongo_data:
+    driver: local
+
+networks:
+  financial_network:
+    driver: bridge

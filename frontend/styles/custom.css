@@ -1,0 +1,189 @@
+/* AI Financial Advisor - Clean, Simple & Modern Dark Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg-main: #0B0F19;
+    --bg-card: #131B2E;
+    --bg-card-hover: #1E293B;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-hover: #3B82F6;
+    --primary-blue: #3B82F6;
+    --primary-emerald: #10B981;
+    --primary-rose: #EF4444;
+    --primary-amber: #F59E0B;
+    --text-title: #FFFFFF;
+    --text-body: #E2E8F0;
+    --text-muted: #94A3B8;
+}
+
+/* Base App Layout */
+.stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+    background-color: #0B0F19 !important;
+    color: #E2E8F0 !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #0F172A !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+}
+h1 { font-size: 1.9rem !important; }
+h2 { font-size: 1.45rem !important; }
+h3 { font-size: 1.2rem !important; }
+
+/* Paragraphs & Text */
+p, span, label, div {
+    color: #E2E8F0;
+}
+
+[data-testid="stMarkdownContainer"] p {
+    color: #E2E8F0 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+}
+
+/* Clean Brand Header */
+.brand-header {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+}
+
+.sub-header-text {
+    font-size: 0.85rem;
+    color: #94A3B8;
+    margin-bottom: 16px;
+}
+
+/* Clean KPI Metric Cards */
+.kpi-card {
+    background: #131B2E;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease-in-out;
+}
+
+.kpi-card:hover {
+    border-color: #3B82F6;
+    background: #1E293B;
+    transform: translateY(-2px);
+}
+
+.kpi-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94A3B8;
+    margin-bottom: 6px;
+}
+
+.kpi-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #FFFFFF !important;
+}
+
+/* Status Badges */
+.kpi-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 6px;
+}
+.badge-success { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+.badge-danger { background: rgba(239, 68, 68, 0.15); color: #F87171; }
+.badge-warning { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+.badge-info { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+
+/* Clean Content Panel */
+.glass-panel {
+    background: #131B2E;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 18px;
+}
+
+/* AI Insight Box */
+.ai-insight-box {
+    background: #162036;
+    border-left: 4px solid #3B82F6;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+}
+.ai-insight-text {
+    font-size: 0.92rem;
+    color: #E2E8F0 !important;
+    line-height: 1.5;
+}
+
+/* Inputs & Form Controls */
+.stTextInput input, .stNumberInput input, .stSelectbox select, div[data-baseweb="select"] > div {
+    background-color: #0F172A !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    font-size: 0.95rem !important;
+}
+
+.stTextInput input:focus, .stNumberInput input:focus, div[data-baseweb="select"] > div:focus-within {
+    border-color: #3B82F6 !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25) !important;
+}
+
+/* Clean Buttons */
+.stButton > button {
+    background-color: #1E293B !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 8px 20px !important;
+    transition: all 0.2s ease;
+}
+
+.stButton > button:hover {
+    background-color: #3B82F6 !important;
+    border-color: #3B82F6 !important;
+    color: #FFFFFF !important;
+}
+
+/* Primary Button (Blue) */
+button[kind="primary"], .stButton > button[kind="primary"] {
+    background-color: #2563EB !important;
+    border-color: #2563EB !important;
+    color: #FFFFFF !important;
+}
+
+button[kind="primary"]:hover {
+    background-color: #1D4ED8 !important;
+}
+
+/* Tables & Dataframes */
+[data-testid="stDataFrame"] {
+    background: #131B2E !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0B0F19; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
