@@ -21,7 +21,7 @@ kpis = metrics.get("kpis", {})
 
 # Header Section
 st.markdown('<div class="brand-header">💎 Executive Financial Dashboard</div>', unsafe_allow_html=True)
-st.markdown(f"<p style='color: #94A3B8;'>Real-time AI-powered financial monitoring for <b>{st.session_state.get('user', {}).get('full_name', 'User')}</b>.</p>", unsafe_allow_html=True)
+st.markdown(f"<p style='color: #94A3B8;'>Real-time AI-powered financial monitoring for <b>{st.session_state.get('user', {}).get('full_name', 'Alex Mercer')}</b>.</p>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
 # 1. KPI CARDS GRID (Rows of 5)

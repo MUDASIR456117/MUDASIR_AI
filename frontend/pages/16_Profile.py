@@ -19,7 +19,7 @@ with col_prof:
     st.markdown('<div class="glass-panel">', unsafe_allow_html=True)
     st.subheader("Financial Identity")
     with st.form("update_profile_form"):
-        name = st.text_input("Full Name", value=user.get("full_name", "User"))
+        name = st.text_input("Full Name", value=user.get("full_name", "Alex Mercer"))
         username = st.text_input("Username", value=user.get("username", "demouser"), disabled=True)
         email = st.text_input("Email", value=user.get("email", "demo@financialadvisor.ai"), disabled=True)
         income = st.number_input("Monthly Net Inflow ($)", value=float(user.get("monthly_income", 6500.0)), step=250.0)

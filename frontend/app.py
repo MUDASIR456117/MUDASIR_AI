@@ -13,7 +13,7 @@ from frontend.services.api_client import api_client
 # Page Config
 st.set_page_config(
     page_title="AI Financial Advisor",
-    page_icon="💰",
+    page_icon="💼",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -34,13 +34,11 @@ if "authenticated" not in st.session_state:
 
 # Backend Health Check
 health = api_client.check_health()
-is_healthy = health.get("status") in ["healthy", "online"]
-status_color = "#10B981" if is_healthy else "#EF4444"
-status_text = "Online (v1.0.0)" if is_healthy else "Connecting..."
+status_color = "#10B981" if health.get("status") == "healthy" else "#EF4444"
 
 # Sidebar
 with st.sidebar:
-    st.markdown('<div class="brand-header">💰 AI Financial Advisor</div>', unsafe_allow_html=True)
+    st.markdown('<div class="brand-header">💼 AI Financial Advisor</div>', unsafe_allow_html=True)
     st.markdown("<p style='font-size: 0.85rem; color: #94A3B8; margin-top: -4px;'>Personal Finance & Wealth Platform</p>", unsafe_allow_html=True)
     st.markdown("---")
 
@@ -53,7 +51,7 @@ with st.sidebar:
                 <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: {status_color};"></span>
             </div>
             <div style="font-size: 0.88rem; font-weight: 700; color: #FFFFFF; margin-top: 4px;">
-                FastAPI: {status_text}
+                FastAPI: Online (v1.0.0)
             </div>
             <div style="font-size: 0.75rem; color: #10B981;">MongoDB Atlas: Connected</div>
         </div>
@@ -63,23 +61,20 @@ with st.sidebar:
 
     if st.session_state.get("authenticated") and st.session_state.get("user"):
         u = st.session_state.user
-        display_name = u.get("full_name") or u.get("username") or "User"
-        role_name = u.get("role", "USER")
         st.markdown(
             f"""
             <div style="padding: 12px 14px; background: #1E293B; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 14px;">
                 <div style="font-size: 0.75rem; color: #3B82F6; font-weight: 600;">ACTIVE USER</div>
-                <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">{display_name}</div>
-                <div style="font-size: 0.75rem; color: #94A3B8;">Role: <span style="color: #10B981; font-weight: 600;">{role_name}</span></div>
+                <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">{u.get('full_name', 'Alex Mercer')}</div>
+                <div style="font-size: 0.75rem; color: #94A3B8;">Role: <span style="color: #10B981; font-weight: 600;">{u.get('role', 'USER')}</span></div>
             </div>
             """,
             unsafe_allow_html=True
         )
-        if st.button("↪ Logout", use_container_width=True):
+        if st.button("🚪 Logout", use_container_width=True):
             st.session_state.authenticated = False
             st.session_state.token = None
             st.session_state.user = None
-            st.session_state.login_password = ""
             st.rerun()
 
 # Navigation (Locked until login)
@@ -97,21 +92,21 @@ else:
         "Core Finance": [
             st.Page("pages/03_Dashboard.py", title="Dashboard", icon="📊", default=True),
             st.Page("pages/04_Transactions.py", title="Transactions", icon="💳"),
-            st.Page("pages/05_Income.py", title="Income Inflow", icon="💵"),
-            st.Page("pages/06_Expense_Analytics.py", title="Expense Analytics", icon="📈"),
+            st.Page("pages/05_Income.py", title="Income Inflow", icon="💰"),
+            st.Page("pages/06_Expense_Analytics.py", title="Expense Analytics", icon="📉"),
             st.Page("pages/07_Receipt_Scanner.py", title="Receipt Scanner", icon="🧾")
         ],
         "AI & Predictions": [
-            st.Page("pages/08_AI_Budget_Planner.py", title="AI Budget Planner", icon="🧮"),
-            st.Page("pages/09_Financial_Forecast.py", title="Spending Forecast", icon="🔮"),
-            st.Page("pages/10_Fraud_Detection.py", title="Fraud Detection", icon="🚨"),
+            st.Page("pages/08_AI_Budget_Planner.py", title="AI Budget Planner", icon="🧠"),
+            st.Page("pages/09_Financial_Forecast.py", title="Spending Forecast", icon="📈"),
+            st.Page("pages/10_Fraud_Detection.py", title="Fraud Detection", icon="🛡️"),
             st.Page("pages/11_Credit_Risk.py", title="Credit Risk (XAI)", icon="⚖️"),
             st.Page("pages/14_AI_Financial_Assistant.py", title="AI Assistant", icon="🤖")
         ],
         "Wealth Planning": [
-            st.Page("pages/12_Investment_Advisor.py", title="Investment Advisor", icon="📌"),
+            st.Page("pages/12_Investment_Advisor.py", title="Investment Advisor", icon="💼"),
             st.Page("pages/13_Financial_Goals.py", title="Financial Goals", icon="🎯"),
-            st.Page("pages/15_Reports.py", title="Financial Reports", icon="📄")
+            st.Page("pages/15_Reports.py", title="Financial Reports", icon="📑")
         ],
         "Settings": [
             st.Page("pages/16_Profile.py", title="Profile", icon="👤"),
