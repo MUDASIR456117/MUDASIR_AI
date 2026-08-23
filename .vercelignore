@@ -1,0 +1,11 @@
+backend/Dockerfile
+backend/requirements.txt
+ml/
+models/
+uploads/
+tests/
+docs/
+*.ipynb
+__pycache__/
+.pytest_cache/
+.env
