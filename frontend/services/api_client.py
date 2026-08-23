@@ -5,7 +5,7 @@ from typing import Dict, Any, List, Optional
 
 logger = logging.getLogger(__name__)
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+BACKEND_URL = os.getenv("BACKEND_URL", "https://mudasirai-production.up.railway.app")
 
 class APIClient:
     def __init__(self, base_url: str = BACKEND_URL):
