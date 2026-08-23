@@ -24,10 +24,10 @@ tab_port, tab_advisor = st.tabs(["💼 Live Portfolio Holdings", "🧠 Risk Prof
 with tab_port:
     portfolio = api_client.get_portfolio(token)
     
-    total_inv = portfolio.get("total_invested", 16180.0)
-    cur_val = portfolio.get("current_value", 18450.0)
-    gain_loss = portfolio.get("total_gain_loss", 2270.0)
-    gain_pct = portfolio.get("total_gain_loss_pct", 14.03)
+    total_inv = portfolissget("total_invested", 16180.0)
+    cur_val = portfolissget("current_value", 18450.0)
+    gain_loss = portfolissget("total_gain_loss", 2270.0)
+    gain_pct = portfolissget("total_gain_loss_pct", 14.03)
     
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -37,7 +37,7 @@ with tab_port:
     with c3:
         render_kpi_card("Unrealized Gain / Loss", f"+${gain_loss:,.2f}", badge_text=f"+{gain_pct:.2f}% Return", badge_type="success", variant="emerald")
     with c4:
-        render_kpi_card("Concentration Risk", portfolio.get("concentration_risk", "Low"), badge_text="Diversified", variant="purple")
+        render_kpi_card("Concentration Risk", portfolissget("concentration_risk", "Low"), badge_text="Diversified", variant="purple")
 
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     
@@ -45,7 +45,7 @@ with tab_port:
     with col_table:
         st.markdown('<div class="glass-panel">', unsafe_allow_html=True)
         st.subheader("Asset Holdings Breakdown")
-        holdings = portfolio.get("holdings", [])
+        holdings = portfolissget("holdings", [])
         if holdings:
             df_h = pd.DataFrame(holdings)
             st.dataframe(
@@ -63,7 +63,7 @@ with tab_port:
 
     with col_pie:
         st.markdown('<div class="glass-panel">', unsafe_allow_html=True)
-        alloc = portfolio.get("allocation_by_type", {"ETF": 45.0, "Stock": 25.0, "Bond": 18.0, "Gold": 12.0})
+        alloc = portfolissget("allocation_by_type", {"ETF": 45.0, "Stock": 25.0, "Bond": 18.0, "Gold": 12.0})
         fig_pie = create_portfolio_distribution_chart(alloc)
         st.plotly_chart(fig_pie, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)

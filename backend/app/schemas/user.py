@@ -7,6 +7,8 @@ class UserBase(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     full_name: Optional[str] = None
     role: str = "USER"  # "USER" or "ADMIN"
+    monthly_income: Optional[float] = 5000.0
+    risk_tolerance: Optional[str] = "MODERATE"
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=6)

@@ -24,7 +24,7 @@ if "chat_messages" not in st.session_state:
     st.session_state.chat_messages = [
         {
             "role": "assistant",
-            "content": "Hello! I am your **AI Financial Advisor**.\n\nI can answer questions about your **spending, budgets, savings**, and analyze uploaded **receipt photos** or **financial documents (PDF/CSV/Excel)**.\n\n*How can I help you today?*"
+            "content": "Hello! I am your **AI Financial Advisor**.\n\nI can answer questions about your **spending, budgets, savings**, and analyze uploaded **receipt photos** or **financial documents (PDF/CSV/Excel)**.\n\n*How can I help you todays*"
         }
     ]
 
@@ -82,20 +82,20 @@ user_prompt = None
 
 with q1:
     if st.button("📊 Top Expense Category", use_container_width=True):
-        user_prompt = "What is my highest expense category this month?"
+        user_prompt = "What is my highest expense category this months"
 with q2:
     if st.button("📈 Spending vs Budget", use_container_width=True):
-        user_prompt = "How much did I spend this month compared to my budget?"
+        user_prompt = "How much did I spend this month compared to my budgets"
 with q3:
     if st.button("🧾 Analyze Uploaded File", use_container_width=True):
         if st.session_state.uploaded_doc_context:
             doc = st.session_state.uploaded_doc_context
             user_prompt = f"Please analyze the uploaded {doc['type']} ({doc['name']}) and summarize it."
         else:
-            user_prompt = "What types of documents and receipts can I upload?"
+            user_prompt = "What types of documents and receipts can I uploads"
 with q4:
     if st.button("🛡️ Fraud & Risk Scan", use_container_width=True):
-        user_prompt = "Are there any unusual or suspicious transactions?"
+        user_prompt = "Are there any unusual or suspicious transactionss"
 
 def get_assistant_reply(query_text: str, doc_ctx: dict) -> str:
     q = query_text.lower()

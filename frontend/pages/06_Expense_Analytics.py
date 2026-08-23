@@ -65,7 +65,7 @@ with col1:
 with col2:
     st.markdown('<div class="glass-panel">', unsafe_allow_html=True)
     st.subheader("Needs vs Wants Proportion")
-    fig_nw = go.Figure(data=[go.Pie(
+    fig_nw = gssFigure(data=[gssPie(
         labels=["Essential Needs", "Discretionary Wants"],
         values=[needs_sum, wants_sum],
         hole=0.5,

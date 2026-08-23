@@ -61,13 +61,15 @@ class MLService:
 
         try:
             # 5. Deep Learning Keras Models
-            import tensorflow as tf
             lstm_path = self.models_dir / "lstm_forecast.keras"
+            auto_path = self.models_dir / "fraud_autoencoder.keras"
+            if lstm_path.exists() or auto_path.exists():
+                import tensorflow as tf
+
             if lstm_path.exists():
                 self.lstm_model = tf.keras.models.load_model(str(lstm_path))
                 logger.info("Loaded LSTM Forecast Deep Learning model.")
             
-            auto_path = self.models_dir / "fraud_autoencoder.keras"
             if auto_path.exists():
                 self.fraud_autoencoder = tf.keras.models.load_model(str(auto_path))
                 logger.info("Loaded DL Fraud Autoencoder model.")

@@ -6,7 +6,7 @@ import logging
 from PIL import Image
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
 
@@ -86,11 +86,10 @@ class ReceiptService:
             PAYMENT METHOD: APPLE PAY
             """
         else:
-            # General synthetic extraction for demo upload
             extracted_text = f"""
             TARGET STORE #1822
             500 BROADWAY AVE
-            Date: {datetime.utcnow().strftime('%Y-%m-%d')}
+            Date: {datetime.now(timezone.utc).strftime('%Y-%m-%d')}
             
             COTTON T-SHIRT 2PK            1    $22.00
             WIRELESS BLUETOOTH MOUSE      1    $29.99
@@ -117,29 +116,32 @@ class ReceiptService:
                 break
 
         # 2. Date extraction
-        date_str = datetime.utcnow().strftime("%Y-%m-%d")
+        date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         date_match = re.search(r"(\d{4}[-/]\d{1,2}[-/]\d{1,2}|\d{1,2}[-/]\d{1,2}[-/]\d{2,4})", raw_text)
         if date_match:
             date_str = date_match.group(1)
 
-        # 3. Total & Tax extraction
+        # 3. Total, Tax & Subtotal extraction
         total = 0.0
         tax = 0.0
         subtotal = 0.0
 
-        total_match = re.search(r"TOTAL\s*[:$]?\s*([0-9]+\.[0-9]{2})", raw_text, re.IGNORECASE)
-        if total_match:
-            total = float(total_match.group(1))
+        subtotal_match = re.search(r"(?i)subtotal[\s:$]*([0-9]+\.[0-9]{2})", raw_text)
+        if subtotal_match:
+            subtotal = float(subtotal_match.group(1))
 
-        tax_match = re.search(r"TAX\s*[^:\n]*[:$]?\s*([0-9]+\.[0-9]{2})", raw_text, re.IGNORECASE)
+        tax_match = re.search(r"(?i)tax(?:[\s\d.]+%)?[\s:$]*([0-9]+\.[0-9]{2})", raw_text)
         if tax_match:
             tax = float(tax_match.group(1))
 
-        subtotal_match = re.search(r"SUBTOTAL\s*[:$]?\s*([0-9]+\.[0-9]{2})", raw_text, re.IGNORECASE)
-        if subtotal_match:
-            subtotal = float(subtotal_match.group(1))
-        elif total > 0:
-            subtotal = round(total - tax, 2)
+        total_match = re.search(r"(?i)(?<!sub)total[\s:$]*([0-9]+\.[0-9]{2})", raw_text)
+        if total_match:
+            total = float(total_match.group(1))
+
+        if total == 0.0 and subtotal > 0:
+            total = round(subtotal + tax, 2)
+        elif subtotal == 0.0 and total > 0:
+            subtotal = round(max(0.0, total - tax), 2)
 
         # 4. Item lines extraction
         items = []
@@ -188,7 +190,7 @@ class ReceiptService:
             "items": items,
             "subtotal": subtotal,
             "tax": tax,
-            "total": total if total > 0 else (subtotal + tax),
+            "total": total if total > 0 else round(subtotal + tax, 2),
             "payment_method": payment_method,
             "suggested_category": category,
             "raw_text": raw_text.strip()
