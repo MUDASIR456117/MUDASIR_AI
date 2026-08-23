@@ -59,7 +59,7 @@ with col1:
                         st.session_state.user = user_info
                         st.session_state.authenticated = True
                         st.success("Login Successful! Opening Dashboard...")
-                        st.rerun()
+                        st.switch_page("pages/03_Dashboard.py")
                     else:
                         raw_err = res.get("error", "Invalid email or password.")
                         st.error(f"Login Failed: {raw_err}")
@@ -78,11 +78,11 @@ with col2:
             AI Financial Advisor provides enterprise-grade AI analytics, spending forecasting, automated receipt OCR, and anomaly detection.
         </p>
         <ul style="color: #CBD5E1; font-size: 0.85rem; line-height: 1.8; padding-left: 18px; margin-bottom: 16px;">
-            <li>ss <b>Real-time Financial Monitoring</b></li>
-            <li>ss <b>LSTM Deep Learning Spending Forecasts</b></li>
-            <li>ss <b>Isolation Forest Fraud & Anomaly Alerts</b></li>
-            <li>ss <b>Computer Vision Receipt OCR</b></li>
-            <li>ss <b>Intelligent Financial Chat Assistant</b></li>
+            <li>📊 <b>Real-time Financial Monitoring</b></li>
+            <li>📈 <b>LSTM Deep Learning Spending Forecasts</b></li>
+            <li>🚨 <b>Isolation Forest Fraud & Anomaly Alerts</b></li>
+            <li>🧾 <b>Computer Vision Receipt OCR</b></li>
+            <li>🤖 <b>Intelligent Financial Chat Assistant</b></li>
         </ul>
         <div style="padding: 12px; background: #0F172A; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
             <div style="font-size: 0.8rem; color: #10B981; font-weight: 600;">System Security</div>

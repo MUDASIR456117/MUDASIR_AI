@@ -76,7 +76,7 @@ with col1:
                             "risk_tolerance": risk_tolerance
                         })
                         st.session_state.authenticated = True
-                        st.rerun()
+                        st.switch_page("pages/03_Dashboard.py")
                     else:
                         err = res.get("error", "Registration failed. Please check your details.")
                         st.error(f"Registration Failed: {err}")
@@ -92,12 +92,12 @@ with col2:
     <div class="glass-panel">
         <h4 style="color: #3B82F6; margin-bottom: 8px;">Key Platform Features</h4>
         <ul style="color: #CBD5E1; font-size: 0.88rem; line-height: 1.8; padding-left: 18px;">
-            <li>ss <b>Real-time Financial Dashboard</b></li>
-            <li>ss <b>Deep Learning Spending Forecast</b></li>
-            <li>sss <b>Fraud & Anomaly Detection</b></li>
-            <li>ss <b>Receipt Scanner with OCR</b></li>
-            <li>ss <b>AI Financial Chatbot Assistant</b></li>
-            <li>ss <b>PDF, Excel, and CSV Report Export</b></li>
+            <li>📊 <b>Real-time Financial Dashboard</b></li>
+            <li>📈 <b>Deep Learning Spending Forecast</b></li>
+            <li>🚨 <b>Fraud & Anomaly Detection</b></li>
+            <li>🧾 <b>Receipt Scanner with OCR</b></li>
+            <li>🤖 <b>AI Financial Chatbot Assistant</b></li>
+            <li>📄 <b>PDF, Excel, and CSV Report Export</b></li>
         </ul>
         <div style="margin-top: 14px; padding: 12px; background: #0F172A; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
             <div style="font-size: 0.8rem; color: #10B981; font-weight: 600;">Privacy First</div>

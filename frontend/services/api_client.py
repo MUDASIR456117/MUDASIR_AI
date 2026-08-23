@@ -5,7 +5,9 @@ from typing import Dict, Any, List, Optional
 
 logger = logging.getLogger(__name__)
 
-BACKEND_URL = os.getenv("BACKEND_URL", "https://mudasirai-production.up.railway.app")
+# The combined Railway deployment runs FastAPI on the internal port 8000.
+# A separately deployed frontend can override this with BACKEND_URL.
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 
 class APIClient:
     def __init__(self, base_url: str = BACKEND_URL):
