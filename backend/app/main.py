@@ -75,8 +75,8 @@ async def global_exception_handler(request: Request, exc: Exception):
 # Required Health Check Endpoint
 @app.get("/health", tags=["Health Check"])
 async def health_check():
-    db_status = "connected" if db_manager.is_connected else "connected"
-    model_status = "loaded" if ml_service.expense_classifier is not None else "loaded"
+    db_status = "connected" if db_manager.is_connected else "unavailable"
+    model_status = "loaded" if ml_service.expense_classifier is not None else "fallback"
     return {
         "status": "healthy",
         "database": db_status,

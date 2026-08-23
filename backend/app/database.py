@@ -1,4 +1,5 @@
 import logging
+import certifi
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from pymongo import MongoClient, ASCENDING, DESCENDING, TEXT
 from pymongo.database import Database as SyncDatabase
@@ -16,11 +17,17 @@ class DatabaseManager:
 
     def connect(self):
         try:
+            connection_options = {
+                "serverSelectionTimeoutMS": 5000,
+                "connectTimeoutMS": 5000,
+            }
+            if settings.MONGODB_URI.startswith("mongodb+srv://"):
+                connection_options.update({"tls": True, "tlsCAFile": certifi.where()})
+
             # Synchronous PyMongo client
             self.sync_client = MongoClient(
                 settings.MONGODB_URI,
-                serverSelectionTimeoutMS=5000,
-                connectTimeoutMS=5000
+                **connection_options
             )
             # Ping database to verify connection
             self.sync_client.admin.command('ping')
@@ -29,7 +36,7 @@ class DatabaseManager:
             # Asynchronous Motor client
             self.async_client = AsyncIOMotorClient(
                 settings.MONGODB_URI,
-                serverSelectionTimeoutMS=5000
+                **connection_options
             )
             self.async_db = self.async_client[settings.DATABASE_NAME]
             self.is_connected = True
